@@ -1,0 +1,114 @@
+{% extends "college_header.html" %}
+{% load static %}
+{% block link %}/college_dashboard{% endblock link %}
+{% block title %}Dashboard{% endblock title %}
+{% block header %}College Dashboard{% endblock header %}
+
+{% block dashboardcollapsed %}collapsed{% endblock dashboardcollapsed %}
+{% block verifycollapsed %}collapsed{% endblock verifycollapsed %}
+
+{% block body %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Verification</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active">Pending Verification</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+        <div class="row">
+  
+          <!-- Left side columns -->
+          <div class="row">
+  
+          <!-- Recent Sales -->
+          <div class="col-12">
+            <div class="card recent-sales overflow-auto">
+
+              <div class="card-body">
+                <h5 class="card-title">Request <span>|</span></h5>
+
+                <table class="table table-borderless datatable">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Student</th>
+                      <th scope="col">Phone</th>
+                      <th scope="col">Course</th>
+                      <th scope="col">From</th>
+                      <th scope="col">To</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                    {% for std in request_student %}
+                    <tr>
+                      <th scope="row">{{ std.roll }}</th>
+                      <td>{{ std.name }}</td>
+                      <td>{{ std.phone }}</td>
+                      <td>{{ std.course }}</td>
+                      <td>{{ std.route_from.name }}</td>
+                      <td>{{ std.route_to.name }}</td>
+                      <td><strong 
+                        {% if std.verify_college == True %}
+                            class="text-primary"
+                        {% else %}
+                            class="text-danger"
+                        {% endif %}>
+                        {% if std.verify_college_reject == True %}
+                              Rejected
+                        {% elif std.verify_college == True %} 
+                              Approved 
+                        {% else %}
+                              Pending
+                        {% endif %}
+                      </strong>
+                      </td>
+                      <td >
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-12 col-md-6">
+                              <form action="{% url 'college_verify' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="text" value="{{ std.student_id }}" name="student_id" hidden >
+                                <button type="submit" class="btn btn-success"><i class="bi bi-check-circle"></i></button>
+                              </form>
+                            </div>
+                            <div class="col-12 col-md-6">
+                              <form action="{% url 'college_verify_reject' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="text" value="{{ std.student_id }}" name="student_id" hidden >
+                                <button type="submit" class="btn btn-danger"><i class="bi bi-exclamation-octagon"></i></button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+
+                      </td>
+                    </tr>
+                    {% endfor %}
+                    
+                  </tbody>
+                </table>
+
+              </div>
+
+            </div>
+          </div><!-- End Recent Sales -->
+
+          </div>
+          <!-- End Left side columns -->
+  
+        </div>
+      </section>
+
+  </main><!-- End #main -->
+
+ {% endblock body %}

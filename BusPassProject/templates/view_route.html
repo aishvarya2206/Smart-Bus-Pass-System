@@ -1,0 +1,82 @@
+{% extends "header.html" %}
+{% load static %}
+{% block title %}Route{% endblock title %}
+
+{% block dashboardcollapsed %}collapsed{% endblock dashboardcollapsed %}
+{% block profilecollapsed %}collapsed{% endblock profilecollapsed %}
+{% block verificationcollapsed %}collapsed{% endblock verificationcollapsed %}
+{% block paymentcollapsed %}collapsed{% endblock paymentcollapsed %}
+{% block generatecollapsed %}collapsed{% endblock generatecollapsed %}
+
+{% block body %}
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>View Route</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item">Tables</li>
+          <li class="breadcrumb-item active">General</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Your Start and End Location</h5>
+
+              <!-- Table with hoverable rows -->
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Start</th>
+                    <th scope="col">End</th>
+                    <th scope="col">Distance</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>{{ from_route.name }}</td>
+                    <td>{{ to_route.name }}</td>
+                    <td>{{dist}} KM</td>
+                    
+                  </tr>
+                 
+                </tbody>
+              </table>
+              <!-- End Table with hoverable rows -->
+
+            </div>
+          </div>
+      </div>
+    </section>
+
+    <section class="section">
+        <div class="row">
+            <div class="card">
+              <div class="card-body">
+                <div class="text-center">
+                    <h5 class="card-title"></h5>
+                    {% if student_data.apply == False %}
+                    <form action="{% url 'apply_pass' %}" method ="POST">
+                      <input type="text" name="apply" value="1" hidden>
+                      <button type="submit" class="btn btn-primary ">Apply Pass</button>
+                      {% csrf_token %}
+                    </form>
+                    {% endif %}
+                  </div>
+  
+              </div>
+            </div>
+        </div>
+      </section>
+
+  </main><!-- End #main -->
+
+{% endblock body %}

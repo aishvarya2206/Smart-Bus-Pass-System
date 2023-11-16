@@ -1,0 +1,103 @@
+{% extends "manager_header.html" %}
+{% load static %}
+{% block link %}/manager_dashboard{% endblock link %}
+{% block title %}Dashboard{% endblock title %}
+{% block header %}Manager Dashboard{% endblock header %}
+
+{% block approvalcollapsed %}collapsed{% endblock approvalcollapsed %}
+{% block generatecollapsed %}collapsed{% endblock generatecollapsed %}
+{% block reportollapsed %}collapsed{% endblock reportollapsed %}
+
+{% block name %}{{ manager.name }}{% endblock name %}
+
+{% block body %}
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Manager Dashboard</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active">Manager Dashboard</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+      <div class="row">
+
+        <!-- Left side columns -->
+        <div class="row">
+
+        <!-- Sales Card -->
+        <div class="col-xxl-4 col-md-6">
+            <div class="card info-card sales-card">
+
+            <div class="card-body">
+                <h5 class="card-title">Pass<span>| Request Pending</span></h5>
+
+                <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-cart"></i>
+                </div>
+                <div class="ps-3">
+                    <h6>{{ count_request }}</h6>
+                </div>
+                </div>
+            </div>
+
+            </div>
+        </div><!-- End Sales Card -->
+
+        <!-- Revenue Card -->
+        <div class="col-xxl-4 col-md-6">
+            <div class="card info-card revenue-card">
+
+            <div class="card-body">
+                <h5 class="card-title">Total Pass <span>| Created this week</span></h5>
+
+                <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-currency-dollar"></i>
+                </div>
+                <div class="ps-3">
+                    <h6>{{ count_verified }}</h6>
+                </div>
+                </div>
+            </div>
+
+            </div>
+        </div><!-- End Revenue Card -->
+
+        <!-- Customers Card -->
+        <div class="col-xxl-4 col-xl-12">
+
+            <div class="card info-card customers-card">
+
+            <div class="card-body">
+                <h5 class="card-title">Pass Holder <span>| Total</span></h5>
+
+                <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-people"></i>
+                </div>
+                <div class="ps-3">
+                    <h6>{{ count_passholder }}</h6>
+                </div>
+                </div>
+
+            </div>
+            </div>
+
+        </div><!-- End Customers Card -->
+        </div>
+        <!-- End Left side columns -->
+
+      </div>
+    </section>
+
+
+
+  </main><!-- End #main -->
+
+ {% endblock body %}

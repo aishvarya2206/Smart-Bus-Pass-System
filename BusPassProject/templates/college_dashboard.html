@@ -1,0 +1,193 @@
+{% extends "college_header.html" %}
+{% load static %}
+{% block link %}/college_dashboard{% endblock link %}
+{% block title %}Dashboard{% endblock title %}
+{% block header %}College Dashboard{% endblock header %}
+
+{% block dashboardcollapsed %}collapsed{% endblock dashboardcollapsed %}
+{% block verificationcollapsed %}collapsed{% endblock verificationcollapsed %}
+{% block verifycollapsed %}collapsed{% endblock verifycollapsed %}
+
+{% block name %}{{ college.name }}{% endblock name %}
+
+{% block body %}
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>College Dashboard</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active">College Dashboard</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+      <div class="row">
+
+        <!-- Left side columns -->
+        <div class="row">
+
+        <!-- Sales Card -->
+        <div class="col-xxl-4 col-md-6">
+            <div class="card info-card sales-card">
+
+            <div class="card-body">
+                <h5 class="card-title">Verification<span>| Request Pending</span></h5>
+
+                <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-cart"></i>
+                </div>
+                <div class="ps-3">
+                    <h6>{{ count_request }}</h6>
+                </div>
+                </div>
+            </div>
+
+            </div>
+        </div><!-- End Sales Card -->
+
+        <!-- Revenue Card -->
+        <div class="col-xxl-4 col-md-6">
+            <div class="card info-card revenue-card">
+
+            <div class="card-body">
+                <h5 class="card-title">Verification <span>| Done</span></h5>
+
+                <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-currency-dollar"></i>
+                </div>
+                <div class="ps-3">
+                    <h6>{{ count_verified }}</h6>
+                </div>
+                </div>
+            </div>
+
+            </div>
+        </div><!-- End Revenue Card -->
+
+        <!-- Customers Card -->
+        <div class="col-xxl-4 col-xl-12">
+
+            <div class="card info-card customers-card">
+
+            <div class="card-body">
+                <h5 class="card-title">Pass Holder <span>| Total Student</span></h5>
+
+                <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-people"></i>
+                </div>
+                <div class="ps-3">
+                    <h6>{{ count_passholder }}</h6>
+                </div>
+                </div>
+
+            </div>
+            </div>
+
+        </div><!-- End Customers Card -->
+        </div>
+        <!-- End Left side columns -->
+
+      </div>
+    </section>
+
+    <section class="section dashboard">
+        <div class="row">
+  
+          <!-- Left side columns -->
+          <div class="row">
+  
+          <!-- Recent Sales -->
+          <div class="col-12">
+            <div class="card recent-sales overflow-auto">
+
+              <div class="card-body">
+                <h5 class="card-title">Request <span>| Today</span></h5>
+
+                <table class="table table-borderless datatable">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Student</th>
+                      <th scope="col">Phone</th>
+                      <th scope="col">Course</th>
+                      <th scope="col">From</th>
+                      <th scope="col">To</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for std in request_student %}
+                    
+                    <tr>
+                      <th scope="row">{{ std.roll }}</th>
+                      <td>{{ std.name }}</td>
+                      <td>{{ std.phone }}</td>
+                      <td>{{ std.course }}</td>
+                      <td>{{ std.route_from.name }}</td>
+                      <td>{{ std.route_to.name }}</td>
+                      
+                      <td><strong 
+                        {% if std.verify_college == True %}
+                            class="text-primary"
+                        {% else %}
+                            class="text-danger"
+                        {% endif %}>
+                        {% if std.verify_college_reject == True %}
+                              Rejected
+                        {% elif std.verify_college == True %} 
+                              Approved 
+                        {% else %}
+                              Pending
+                        {% endif %}
+                      </strong>
+                      </td>
+                      <td >
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-12 col-md-6">
+                              <form action="{% url 'college_verify' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="text" value="{{ std.student_id }}" name="student_id" hidden >
+                                <button type="submit" class="btn btn-success"><i class="bi bi-check-circle"></i></button>
+                              </form>
+                            </div>
+                            <div class="col-12 col-md-6">
+                              <form action="{% url 'college_verify_reject' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="text" value="{{ std.student_id }}" name="student_id" hidden >
+                                <button type="submit" class="btn btn-danger"><i class="bi bi-exclamation-octagon"></i></button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+
+                      </td>
+                      
+                    </tr>
+                    
+                    {% endfor %}
+                   
+                  </tbody>
+                </table>
+
+              </div>
+
+            </div>
+          </div><!-- End Recent Sales -->
+
+          </div>
+          <!-- End Left side columns -->
+  
+        </div>
+      </section>
+
+  </main><!-- End #main -->
+
+ {% endblock body %}

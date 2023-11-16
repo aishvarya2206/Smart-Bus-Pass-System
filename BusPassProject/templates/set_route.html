@@ -1,0 +1,73 @@
+{% extends "header.html" %}
+{% load static %}
+{% block title %}Route{% endblock title %}
+
+{% block dashboardcollapsed %}collapsed{% endblock dashboardcollapsed %}
+{% block profilecollapsed %}collapsed{% endblock profilecollapsed %}
+{% block verificationcollapsed %}collapsed{% endblock verificationcollapsed %}
+{% block paymentcollapsed %}collapsed{% endblock paymentcollapsed %}
+{% block generatecollapsed %}collapsed{% endblock generatecollapsed %}
+
+{% block body %}
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Set Route</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item">Forms</li>
+          <li class="breadcrumb-item active">Layouts</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    <section class="section">
+      <div class="row">
+          <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+              <!-- Vertical Form -->
+        
+              <form class="row g-3" action="{% url 'handleRoute' %}" method ="POST" >
+                  {% csrf_token %}
+                <div class="col-12">
+                  <select class="form-select" aria-label="Default select example" name="routefrom" id="routefrom">
+                    <option>Select Route(Start Location -To)</option>
+                    {% for x in route_data %}
+                      <option value="{{ x.route_id }}">{{ x.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="col-12">
+                  <select class="form-select" aria-label="Default select example" name="routeto" id="routeto">
+                    <option>Select Route(Destination Location -From)</option>
+                    {% for x in route_data %}
+                      <option value="{{ x.route_id }}">{{ x.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form><!-- Vertical Form -->
+
+            </div>
+          </div>        
+      </div>
+    </section>
+
+</main><!-- End #main -->
+<!-- custom script -->
+<script src ="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    $(document).ready(()=>{
+        $('#routefrom').change(function(){
+          var select_from = $("#routefrom").val();
+          $("#routeto option[value=" + select_from + "]").hide();
+        })
+    }); 
+</script>
+<!-- custom script end -->
+{% endblock body %}

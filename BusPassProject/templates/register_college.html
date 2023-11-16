@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Registration</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="static/student_assets/img/favicon.png" rel="icon">
+  <link href="static/student_assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="static/student_assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="static/student_assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="static/student_assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="static/student_assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="static/student_assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="static/student_assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="static/student_assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="static/student_assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: NiceAdmin
+  * Updated: Mar 09 2023 with Bootstrap v5.2.3
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <main>
+    <div class="container">
+
+      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-8 d-flex flex-column align-items-center justify-content-center">
+
+              <div class="d-flex justify-content-center py-4">
+                <a href="index.html" class="logo d-flex align-items-center w-auto">
+                  <img src="static/student_assets/img/logo.png" alt="">
+                  <span class="d-none d-lg-block">Smart Bus Pass</span>
+                </a>
+              </div><!-- End Logo -->
+
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="pt-4 pb-2">
+                    <h5 class="card-title text-center pb-0 fs-4">College Faculty Register Account</h5>
+                    <p class="text-center small"></p>
+                  </div>
+                  
+                  <form class="row g-3 needs-validation" novalidate action="{% url 'handleSignup' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="row mb-3">
+                        <label for="name" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
+                        <div class="col-md-8 col-lg-9">
+                          <input name="name" type="text" class="form-control" id="name" value="" placeholder="Your Full Name" required>
+                          <input type = "text" name ="type" id="type" value="2" hidden>
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                          <label for="college" class="col-md-4 col-lg-3 col-form-label">College Name</label>
+                          <div class="col-md-8 col-lg-9">
+                            <select class="form-select" aria-label="Default select example" name="collegename" id="collegename" required>
+                              <option>College Select</option>
+                              {% for x in college_data %}
+                                <option value="{{ x.college_id }}">{{ x.name }}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label for="college" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                        <div class="col-md-8 col-lg-9">
+                          <input name="email" type="email" class="form-control" id="email" value="" placeholder="Your Email ID" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                      <label for="yourUsername" class="form-label">Username</label>
+                      <div class="input-group has-validation">
+                        <!--<span class="input-group-text" id="inputGroupPrepend">@</span>-->
+                        <input type="text" name="username" class="form-control" id="yourUsername" pattern="[A-Za-z]{3,}" required>
+                        <div class="invalid-feedback">Please enter your username.</div>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <label for="yourPassword" class="form-label">Password</label>
+                      <input type="password" name="password" class="form-control" id="yourPassword" pattern=".{8,}" required maxlength="10">
+                      <div class="invalid-feedback">Please enter your password!</div>
+                      <small class="text-danger" id="password_error">Password must be of 8 characters</small>
+                    </div>
+
+                    <div class="col-12">
+                      <button class="btn btn-primary w-100" type="submit">Register</button>
+                    </div>
+                    <div class="col-12">
+                      <p class="small mb-0"></p>
+                    </div>
+                  </form>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main><!-- End #main -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="static/student_assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="static/student_assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="static/student_assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="static/student_assets/vendor/echarts/echarts.min.js"></script>
+  <script src="static/student_assets/vendor/quill/quill.min.js"></script>
+  <script src="static/student_assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="static/student_assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="static/student_assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="static/student_assets/js/main.js"></script>
+  <!--jQuery to show or hide div-->
+
+  
+  
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+{% extends "college_header.html" %}
+{% load static %}
+{% block link %}/college_dashboard{% endblock link %}
+{% block title %}Dashboard{% endblock title %}
+{% block header %}College Dashboard{% endblock header %}
+
+{% block dashboardcollapsed %}collapsed{% endblock dashboardcollapsed %}
+{% block verificationcollapsed %}collapsed{% endblock verificationcollapsed %}
+
+{% block body %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Verified</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active">Verified Student</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Student Having Pass</h5>
+  
+                <!-- Table with hoverable rows -->
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Student</th>
+                      <th scope="col">Phone</th>
+                      <th scope="col">Course</th>
+                      <th scope="col">From</th>
+                      <th scope="col">To</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                    {% for std in verified_student %}
+                    <tr>
+                      <th scope="row">{{ std.roll }}</th>
+                      <td>{{ std.name }}</td>
+                      <td>{{ std.phone }}</td>
+                      <td>{{ std.course }}</td>
+                      <td>{{ std.route_from.name }}</td>
+                      <td>{{ std.route_to.name }}</td>
+                      
+                    </tr>
+                    {% endfor %}
+                    
+                  </tbody>
+                </table>
+                <!-- End Table with hoverable rows -->
+  
+              </div>
+            </div>
+        </div>
+      </section>
+
+</main><!-- End #main -->
+
+ {% endblock body %}

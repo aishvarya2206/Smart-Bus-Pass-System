@@ -1,0 +1,28 @@
+{% extends "manager_header.html" %}
+{% load static %}
+{% block link %}/manager_dashboard{% endblock link %}
+{% block title %}Dashboard{% endblock title %}
+{% block header %}Manager Dashboard{% endblock header %}
+
+{% block dashboardcollapsed %}collapsed{% endblock dashboardcollapsed %}
+{% block approvalcollapsed %}collapsed{% endblock approvalcollapsed %}
+{% block reportollapsed %}collapsed{% endblock reportollapsed %}
+
+{% block body %}
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Manager Dashboard</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active">Manager Dashboard</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+   
+
+  </main><!-- End #main -->
+
+ {% endblock body %}
